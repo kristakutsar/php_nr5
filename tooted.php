@@ -57,76 +57,11 @@
                     </div>
                 </nav>
 
-                       <div class="row mt-4">
-                    <div class="col-md-6 d-flex flex-column align-items-center">
-                        <?php
-                            $pakkumised = array("SUPER ALE", "ALLAHINDLUS","HINNAD ALL");
-                            $tekst = $pakkumised[array_rand($pakkumised)];
-                        ?>
-                        <h1 class="text-start text-dark"><?php echo $tekst; ?></h1>
-                        <h2 class="text-start text-dark">-20% kõik tooted!</h2>
-                        <p class="text-start text-dark">Kasuta ilma taustata pilti ja kindlasti võta kasutusele BS5.
-                        </p>
-                        <button class="btn custom-btn rounded-pill d-inline-flex align-items-center" type="button">
-                         Vaata pakkumisi -> </button>
-                    </div>
-                    <div class="col-md-6 ">
-                        <?php
-                            $pilt = array("pilt2.png", "avaleht.png");
-                            $pildid = $pilt[array_rand($pilt)];
-                        ?>
-                        <img src="<?php echo $pildid; ?>" height="300" alt="Image 1">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h1 class="text-center fs-4 mt-4 mb-5">Parimad pakkumised</h1>
-        <div class="container">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-        <?php
-$tooted = "tooted.csv";
-
-// Open the file for reading
-$minu_csv = fopen($tooted, "r");
-
-if ($minu_csv === FALSE) {
-    die("Failed to open the CSV file.");
-}
-
-while (($rida = fgetcsv($minu_csv)) !== FALSE) {
-    if (is_array($rida) && count($rida) >= 5) { // Ensure array and at least 5 columns
-        echo '
-        <div class="col">
-            <div class="card border-0">
-                <img src="img/' . htmlspecialchars($rida[4]) . '" class="card-img-top" alt="' . htmlspecialchars($rida[1]) . '">
-                <div class="card-body">
-                    <h5 class="card-title">' . htmlspecialchars($rida[1]) . '</h5>
-                    <p class="card-text">' . htmlspecialchars($rida[2]) . '</p>
-                    <p class="card-text">' . htmlspecialchars($rida[3]) . '€</p>
-                </div>
-            </div>
-        </div>
-        ';
-    } else {
-        // Handle rows with insufficient data
-        echo '<div class="col"><p>Row has insufficient data: ' . htmlspecialchars(implode(',', $rida)) . '</p></div>';
-    }
-}
-
-// Close the file handle
-fclose($minu_csv);
-
+<?php
+echo "Tooted";
 ?>
 
-
-        </div>
-    </div>
-
-
-
-
-
-  <div class="container">
+<div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Krista Kutsar ITS-23</span>
     </footer>
