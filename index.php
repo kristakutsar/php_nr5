@@ -81,50 +81,45 @@
             </div>
         </div>
         <h1 class="text-center fs-4 mt-4 mb-5">Parimad pakkumised</h1>
-        <div class="container">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="container" style="max-width: 800px; margin: 0 auto;">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
         <?php
 $tooted = "tooted.csv";
 
-// Open the file for reading
-$minu_csv = fopen($tooted, "r");
+if (file_exists($tooted) && ($minu_csv = fopen($tooted, "r")) !== FALSE) {
+    while (($rida = fgetcsv($minu_csv, 1000, ",")) !== FALSE) {
+        if (count($rida) >= 3) {
+            $toode = $rida[0];
+            $hind = $rida[1];
+            $pilt = $rida[2];
 
-if ($minu_csv === FALSE) {
-    die("Failed to open the CSV file.");
-}
+            // Use the provided image path without checking if it exists
+            $imagePath = $pilt;
 
-while (($rida = fgetcsv($minu_csv)) !== FALSE) {
-    if (is_array($rida) && count($rida) >= 5) { // Ensure array and at least 5 columns
-        echo '
-        <div class="col">
-            <div class="card border-0">
-                <img src="img/' . htmlspecialchars($rida[4]) . '" class="card-img-top" alt="' . htmlspecialchars($rida[1]) . '">
-                <div class="card-body">
-                    <h5 class="card-title">' . htmlspecialchars($rida[1]) . '</h5>
-                    <p class="card-text">' . htmlspecialchars($rida[2]) . '</p>
-                    <p class="card-text">' . htmlspecialchars($rida[3]) . '€</p>
+            echo '
+            <div class="col">
+                <div class="card border-0">
+                    <img src="' . htmlspecialchars($imagePath) . '" class="card-img-top" alt="' . htmlspecialchars($toode) . '">
+                    <div class="card-body">
+                        <h5 class="card-title">' . htmlspecialchars($toode) . '</h5>
+                        <p class="card-text">' . htmlspecialchars($hind) . '</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        ';
-    } else {
-        // Handle rows with insufficient data
-        echo '<div class="col"><p>Row has insufficient data: ' . htmlspecialchars(implode(',', $rida)) . '</p></div>';
+            ';
+        }
     }
+
+    fclose($minu_csv);
 }
-
-// Close the file handle
-fclose($minu_csv);
-
 ?>
+
+
+
 
 
         </div>
     </div>
-
-
-
-
 
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -132,4 +127,4 @@ fclose($minu_csv);
     </footer>
   </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
-</body>
+</body>š
